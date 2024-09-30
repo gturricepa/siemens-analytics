@@ -56,6 +56,14 @@ export const DriversResults = () => {
     return formattedDate;
   };
 
+  const sortedData = [...data].sort((a, b) => {
+    const nameA = `${a.firstname} ${a.lastname}`.toLowerCase();
+    const nameB = `${b.firstname} ${b.lastname}`.toLowerCase();
+    if (nameA < nameB) return -1;
+    if (nameA > nameB) return 1;
+    return 0;
+  });
+
   return (
     <Styled.Main>
       <h2>
@@ -87,7 +95,7 @@ export const DriversResults = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((item, index) => (
+                  {sortedData.map((item, index) => (
                     <tr key={index}>
                       <td>
                         {item.firstname} {item.lastname}
@@ -107,7 +115,7 @@ export const DriversResults = () => {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Bar dataKey="total" fill="#009999" />{" "}
+                <Bar dataKey="total" fill="#009999" />
               </BarChart>
             </ResponsiveContainer>
           </Styled.Separator>

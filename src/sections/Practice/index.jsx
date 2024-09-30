@@ -181,10 +181,21 @@ export const Practice = () => {
             hoverBorderColor={"#009999"}
           />
         </Styled.Filters>
-        <Info topic={selectedTopic} data={finalFilteredDataWithNames} />
+        <Info
+          name={selectedName}
+          topic={selectedTopic}
+          data={finalFilteredDataWithNames}
+        />
       </Styled.Selectors>
-      {listPerson.length > 0 && !selectedName && (
-        <div style={{ height: "25rem", overflowY: "auto" }}>
+      {/* {listPerson.length > 0 && !selectedName && (
+        <div
+          style={{
+            height: "25rem",
+            overflowY: "auto",
+            width: "100%",
+            display: "flex",
+          }}
+        >
           <h3>Reprovações</h3>
           <table>
             <thead>
@@ -207,7 +218,7 @@ export const Practice = () => {
             </tbody>
           </table>
         </div>
-      )}
+      )} */}
     </Styled.Holder>
   );
 };

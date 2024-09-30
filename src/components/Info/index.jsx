@@ -1,6 +1,6 @@
 import { PraticeChart } from "../Form/PraticeChart";
 import * as Styled from "./styles";
-export const Info = ({ topic, data }) => {
+export const Info = ({ topic, data, name }) => {
   const getTopicInfo = (topic) => {
     const topicsMap = {
       Todos: "Avaliação Geral dos resultados BTW Leves + Práticos",
@@ -36,11 +36,62 @@ export const Info = ({ topic, data }) => {
     return topicsMap[topic] || "Tópico desconhecido.";
   };
 
+  const listPerson = data.filter(
+    (item) => item.respostas_instrutor !== "Aprovado"
+  );
+
+  // Ordenar a lista de pessoas por nome (ou sobrenome)
+  const sortedListPerson = listPerson.sort((a, b) => {
+    const nameA = a.firstname.toLowerCase(); // Converter para minúsculas para comparação
+    const nameB = b.firstname.toLowerCase();
+    if (nameA < nameB) return -1; // A vem antes de B
+    if (nameA > nameB) return 1; // A vem depois de B
+    return 0; // São iguais
+  });
+
   return (
     <Styled.Holder>
       <h1>{topic === "Todos" ? "GERAL" : topic.toUpperCase()}</h1>
-      <PraticeChart data={data} topic={topic}></PraticeChart>
-      <p>{getTopicInfo(topic)}</p>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <PraticeChart data={data} topic={topic} />
+        <p>{getTopicInfo(topic)}</p>
+      </div>
+      {!name && sortedListPerson.length > 0 && (
+        <div
+          style={{
+            height: "25rem",
+            width: "100%",
+            marginTop: "1rem",
+          }}
+        >
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Tópico</th>
+                <th>Comentário do Instrutor</th>
+              </tr>
+            </thead>
+            <tbody>
+              {listPerson.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.firstname}</td>
+                  <td>{item.lastname}</td>
+                  <td>{item.topicos}</td>
+                  <td>{item.respostas_topicos}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </Styled.Holder>
   );
 };

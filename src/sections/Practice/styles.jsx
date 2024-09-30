@@ -21,7 +21,6 @@ export const Holder = styled.section`
 
   h3 {
     margin-top: 3rem;
-    margin-left: 2.5rem;
   }
   h2 {
     margin-top: 1rem;
@@ -33,17 +32,15 @@ export const Holder = styled.section`
   }
   table {
     align-self: center;
-    margin-left: 3rem;
+
     justify-self: center;
-    width: 80%;
+    width: 90%;
     border-collapse: collapse;
     font-size: 10px;
   }
 
   th,
   td {
-    padding-left: 2.5rem;
-
     font-size: 13px;
     border-bottom: 1px solid lightgray;
     padding: 0.8rem;

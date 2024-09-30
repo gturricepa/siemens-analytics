@@ -24,6 +24,14 @@ export const List = ({ data, icon, text, full }) => {
 
   const COLORS = ["#009999", "#e64e40"];
 
+  const sortedData = [...data].sort((a, b) => {
+    const nameA = a.firstname.toLowerCase(); //
+    const nameB = b.firstname.toLowerCase();
+    if (nameA < nameB) return -1;
+    if (nameA > nameB) return 1;
+    return 0;
+  });
+
   return (
     <>
       <Styled.Title>
@@ -46,7 +54,7 @@ export const List = ({ data, icon, text, full }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((item, index) => (
+                  {sortedData.map((item, index) => (
                     <tr key={index}>
                       <td>{item.firstname}</td>
                       <td>{item.lastname}</td>
