@@ -13,31 +13,33 @@ const slideIn = keyframes`
 
 export const Holder = styled.section`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 
-  flex-direction: ${(props) => (props.full ? "column" : "row")};
-
-  width: ${(props) => (props.full ? "100%" : "70%")};
+  max-width: 100%;
+  flex-wrap: nowrap;
 `;
 
 export const ListHolder = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid lightgrey;
+  border: 1px solid lightgray;
   border-radius: 5px;
   padding: 2rem;
   min-height: 15rem;
+  width: 100%;
 
   animation: ${slideIn} 0.5s ease forwards;
-  min-width: 100%;
   box-sizing: border-box;
+
   table {
     width: 100%;
     border-collapse: collapse;
+    font-size: 10px;
   }
 
   th,
   td {
+    font-size: 13px;
     border-bottom: 1px solid lightgray;
     padding: 0.8rem;
     text-align: center;
@@ -49,10 +51,6 @@ export const ListHolder = styled.div`
     &:last-child {
       border-bottom: none;
     }
-
-    &:not(:last-child) {
-      margin-bottom: 1rem;
-    }
   }
 `;
 
@@ -62,10 +60,10 @@ export const Chart = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0;
-  align-self: center;
-  justify-self: center;
-
+  width: 25%;
+  margin-left: 2rem;
   box-sizing: border-box;
+
   h3 {
     svg {
       margin-right: 0.3rem;

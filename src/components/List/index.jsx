@@ -4,6 +4,11 @@ import * as Styled from "./styles";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, Cell } from "recharts";
 import { AimOutlined } from "@ant-design/icons";
 
+const excelDateToJSDate = (serial) => {
+  const excelStartDate = new Date(Date.UTC(1899, 11, 30));
+  return new Date(excelStartDate.getTime() + serial * 24 * 60 * 60 * 1000);
+};
+
 export const List = ({ data, icon, text, full }) => {
   const groupedData = data.reduce((acc, item) => {
     const status =
@@ -29,7 +34,7 @@ export const List = ({ data, icon, text, full }) => {
         {data.length > 0 ? (
           <Styled.ListHolder>
             <div style={{ height: "25rem", overflowY: "auto" }}>
-              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <table>
                 <thead>
                   <tr>
                     <th>Nome</th>
@@ -45,7 +50,11 @@ export const List = ({ data, icon, text, full }) => {
                     <tr key={index}>
                       <td>{item.firstname}</td>
                       <td>{item.lastname}</td>
-                      <td>{item.realization_date}</td>
+                      <td>
+                        {excelDateToJSDate(
+                          item.realization_date
+                        ).toLocaleDateString()}
+                      </td>
                       <td>{item.topicos}</td>
                       <td>{item.respostas_topicos}</td>
                       {full ? null : (
@@ -76,15 +85,13 @@ export const List = ({ data, icon, text, full }) => {
         {!full && (
           <Styled.Chart>
             <h3>
-              {" "}
               <AimOutlined />
               Aprovação Geral por Módulo
             </h3>
-            <BarChart width={400} height={400} data={barData} id="wpp">
+            <BarChart width={200} height={400} data={barData}>
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip formatter={(value) => [`Total ${value}`, ""]} />
-
               <Bar dataKey="value" fill="#8884d8">
                 {barData.map((entry, index) => (
                   <Cell

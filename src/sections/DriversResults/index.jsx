@@ -100,7 +100,7 @@ export const DriversResults = () => {
               </table>
             </div>
 
-            <ResponsiveContainer width="30%" height={500}>
+            <ResponsiveContainer width="20%" height={500}>
               <BarChart data={chartData}>
                 <XAxis dataKey="name" />
                 <YAxis />
