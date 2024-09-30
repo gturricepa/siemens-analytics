@@ -77,6 +77,9 @@ export const Right = styled.div`
 export const Main = styled.section`
   margin-left: 1rem;
   margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   width: 98%;
 `;

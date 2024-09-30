@@ -1,7 +1,7 @@
 import React from "react";
 import { Spin } from "antd";
 import * as Styled from "./styles";
-import { PieChart, Pie, Cell, Tooltip } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, Cell } from "recharts";
 import { AimOutlined } from "@ant-design/icons";
 
 export const List = ({ data, icon, text, full }) => {
@@ -12,7 +12,7 @@ export const List = ({ data, icon, text, full }) => {
     return acc;
   }, {});
 
-  const pieData = Object.keys(groupedData).map((status) => ({
+  const barData = Object.keys(groupedData).map((status) => ({
     name: status,
     value: groupedData[status],
   }));
@@ -80,28 +80,20 @@ export const List = ({ data, icon, text, full }) => {
               <AimOutlined />
               Aprovação Geral por Módulo
             </h3>
-            <PieChart width={550} height={400} id="wpp">
-              {" "}
-              {/* Aumentado para 600 de largura */}
-              <Pie
-                data={pieData}
-                cx={300} // Centrado
-                cy={200} // Centrado
-                labelLine={false}
-                label={(entry) => entry.name}
-                outerRadius={140} // Aumentado para 100
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {pieData.map((entry, index) => (
+            <BarChart width={400} height={400} data={barData} id="wpp">
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip formatter={(value) => [`Total ${value}`, ""]} />
+
+              <Bar dataKey="value" fill="#8884d8">
+                {barData.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={COLORS[index % COLORS.length]}
                   />
                 ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
+              </Bar>
+            </BarChart>
           </Styled.Chart>
         )}
       </Styled.Holder>

@@ -1,12 +1,12 @@
 import styled, { keyframes } from "styled-components";
 const slideIn = keyframes`
   0% {
-    transform: translateX(-100%); /* Começa fora da tela à esquerda */
-    opacity: 0; /* Totalmente transparente */
+    transform: translateX(-100%); 
+    opacity: 0; 
   }
   100% {
-    transform: translateX(0); /* Termina na posição original */
-    opacity: 1; /* Totalmente opaco */
+    transform: translateX(0); 
+    opacity: 1; 
   }
 `;
 
@@ -18,7 +18,7 @@ export const ListHolder = styled.div`
   padding: 1rem;
   align-self: center;
   animation: ${slideIn} 0.3s ease;
-  width: 80%;
+  width: 90%;
   height: 98%;
 
   table {

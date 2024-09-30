@@ -169,6 +169,7 @@ export const GeneralResults = () => {
           )}
         </Styled.Right>
       </Styled.Holder>
+
       <List
         data={filteredData}
         text={"Resultados Gerais por Módulos"}
