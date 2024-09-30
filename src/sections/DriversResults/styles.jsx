@@ -12,13 +12,15 @@ const slideIn = keyframes`
 
 export const ListHolder = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: space-evenly;
   flex-direction: column;
   border: 1px solid lightgrey;
   border-radius: 5px;
   padding: 1rem;
   align-self: center;
   animation: ${slideIn} 0.3s ease;
-  width: 90%;
+  width: 95%;
   height: 98%;
 
   table {
@@ -28,6 +30,8 @@ export const ListHolder = styled.div`
 
   th,
   td {
+    font-size: 13px;
+
     border-bottom: 1px solid lightgray;
     padding: 0.8rem;
     text-align: center;
@@ -51,6 +55,8 @@ export const Main = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
+  justify-content: space-evenly;
+
   h2 {
     animation: ${slideIn} 0.3s ease;
 
@@ -66,4 +72,7 @@ export const Main = styled.section`
 
 export const Separator = styled.div`
   display: flex;
+  width: 100%;
+
+  justify-content: space-evenly;
 `;

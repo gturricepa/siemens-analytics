@@ -19,12 +19,42 @@ export const Holder = styled.section`
 
   min-width: 100%;
 
+  h3 {
+    margin-top: 3rem;
+    margin-left: 2.5rem;
+  }
   h2 {
     margin-top: 1rem;
     margin-left: 2.5rem;
     svg {
       margin-right: 1rem;
       font-size: 2rem;
+    }
+  }
+  table {
+    align-self: center;
+    margin-left: 3rem;
+    justify-self: center;
+    width: 80%;
+    border-collapse: collapse;
+    font-size: 10px;
+  }
+
+  th,
+  td {
+    padding-left: 2.5rem;
+
+    font-size: 13px;
+    border-bottom: 1px solid lightgray;
+    padding: 0.8rem;
+    text-align: center;
+  }
+
+  tr {
+    border-bottom: 1px solid lightgray;
+
+    &:last-child {
+      border-bottom: none;
     }
   }
 `;

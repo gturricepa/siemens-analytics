@@ -80,6 +80,5 @@ export const Main = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   width: 98%;
 `;

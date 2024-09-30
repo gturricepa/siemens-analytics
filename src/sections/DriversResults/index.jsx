@@ -70,8 +70,10 @@ export const DriversResults = () => {
             <div
               style={{
                 overflowX: "auto",
-                maxWidth: "100%",
+                display: "flex",
+                width: "100%",
                 maxHeight: "500px",
+                justifyContent: "center",
               }}
             >
               <table>

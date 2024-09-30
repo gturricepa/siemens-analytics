@@ -131,6 +131,10 @@ export const Practice = () => {
     return formattedDate;
   };
 
+  const listPerson = finalFilteredData.filter(
+    (item) => item.respostas_instrutor !== "Aprovado"
+  );
+
   return (
     <Styled.Holder>
       <h2>
@@ -179,6 +183,31 @@ export const Practice = () => {
         </Styled.Filters>
         <Info topic={selectedTopic} data={finalFilteredDataWithNames} />
       </Styled.Selectors>
+      {listPerson.length > 0 && !selectedName && (
+        <div style={{ height: "25rem", overflowY: "auto" }}>
+          <h3>Reprovações</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Tópico</th>
+                <th>Comentário do Instrutor</th>
+              </tr>
+            </thead>
+            <tbody>
+              {listPerson.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.firstname}</td>
+                  <td>{item.lastname}</td>
+                  <td>{item.topicos}</td>
+                  <td>{item.respostas_topicos}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </Styled.Holder>
   );
 };
