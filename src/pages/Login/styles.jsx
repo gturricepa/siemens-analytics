@@ -2,7 +2,7 @@ import { styled, keyframes } from "styled-components";
 
 export const Holder2Lines = styled.main`
   width: 100%;
-  max-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
