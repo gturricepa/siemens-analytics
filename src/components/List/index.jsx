@@ -65,7 +65,7 @@ export const List = ({ data, icon, text, full }) => {
           <Styled.ListHolder>
             {/* AutoComplete now outside the scrollable div */}
             <Styled.StyledAutoComplete
-              options={uniqueNames.map((name) => ({ value: name }))}
+              options={uniqueNames.sort().map((name) => ({ value: name }))}
               onSelect={handleSelect}
               onChange={handleChange}
               style={{ width: 500, marginBottom: 16 }}

@@ -60,7 +60,7 @@ export const DriversResults = () => {
     const fullName = `${item.firstname} ${item.lastname}`.toLowerCase();
     return fullName.includes(searchValue.toLowerCase());
   });
-  //dummy
+  //dummy - new dotenv
   const sortedData = [...filteredData].sort((a, b) => {
     const nameA = `${a.firstname} ${a.lastname}`.toLowerCase();
     const nameB = `${b.firstname} ${b.lastname}`.toLowerCase();
@@ -87,7 +87,7 @@ export const DriversResults = () => {
       <Styled.ListHolder>
         <>
           <Styled.StyledAutoComplete
-            options={uniqueNames.map((name) => ({ value: name }))}
+            options={uniqueNames.sort().map((name) => ({ value: name }))}
             onSelect={handleSelect}
             onChange={handleChange}
             style={{ width: 500, marginBottom: 16 }}
