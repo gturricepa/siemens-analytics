@@ -48,7 +48,6 @@ export const WorldImg = styled.img`
   //animation: ${scaleAnimation} 3s infinite;
 `;
 export const Logo = styled.img`
-  margin-top: 20px;
   margin-bottom: 10px;
   height: 4rem;
   width: 16rem;
