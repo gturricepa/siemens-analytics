@@ -13,12 +13,13 @@ import { AlertOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
 import { BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 import { List } from "../../components/List";
+
 export const GeneralResults = () => {
   const [data, setData] = React.useState([]);
   const [selectedDates, setSelectedDates] = React.useState([]);
 
   React.useEffect(() => {
-    document.title = "CEPA | SIEMENS - Restultados Gerais";
+    document.title = "CEPA | SIEMENS - Resultados Gerais";
     const fetchData = async () => {
       const response = await fetch("SIEMENS.xlsx");
       const arrayBuffer = await response.arrayBuffer();
@@ -65,7 +66,9 @@ export const GeneralResults = () => {
         })
       : [];
 
-  const uniqueDrivers = new Set(filteredData.map((item) => item.driver));
+  const uniqueDrivers = Array.from(
+    new Set(filteredData.map((item) => item.driver))
+  ).sort(); // Ordenando
   const uniqueActivities = new Set(
     filteredData.map((item) => item.atividade_id)
   );
@@ -81,7 +84,7 @@ export const GeneralResults = () => {
 
   const uniqueTopics = Array.from(
     new Set(filteredData.map((item) => item.topicos))
-  );
+  ).sort();
 
   const calculateSuccessRates = () => {
     return uniqueTopics.map((topic) => {
@@ -143,7 +146,7 @@ export const GeneralResults = () => {
           </h2>
 
           <Indicators
-            totalDrivers={uniqueDrivers.size}
+            totalDrivers={uniqueDrivers.length}
             activitiesDone={uniqueActivities.size}
             activitiesTypes={uniqueActivitiesType.size}
           />
@@ -155,10 +158,9 @@ export const GeneralResults = () => {
             </div>
           ) : (
             <>
-              {" "}
               <h2>
                 <BarChartOutlined /> Percentual Geral do desempenho
-              </h2>{" "}
+              </h2>
               <BarChart width={900} height={370} data={chartData}>
                 <XAxis dataKey="topic" tick={{ fontSize: 10 }} />
                 <YAxis />
@@ -175,13 +177,13 @@ export const GeneralResults = () => {
         text={"Resultados Gerais por Módulos"}
         icon={<TrophyOutlined />}
         full={false}
-      ></List>
+      />
       <List
         data={notApproved}
         text={"Reprovação de Condutores por Módulo"}
         icon={<AlertOutlined />}
         full={true}
-      ></List>
+      />
     </Styled.Main>
   );
 };

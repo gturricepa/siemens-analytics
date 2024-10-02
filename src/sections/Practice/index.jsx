@@ -168,7 +168,7 @@ export const Practice = () => {
           </Styled.Labels>
 
           <Styled.StyledAutoComplete
-            options={filteredNames.map((name) => ({ value: name }))}
+            options={filteredNames.sort().map((name) => ({ value: name }))}
             style={{ width: "100%", color: "1px solid #9eacac" }}
             onSearch={handleSearchChange}
             placeholder="Filtrar por motorista..."

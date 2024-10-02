@@ -69,8 +69,7 @@ export const DriversResults = () => {
 
   const uniqueNames = [
     ...new Set(data.map((item) => `${item.firstname} ${item.lastname}`)),
-  ];
-
+  ].sort();
   const handleSelect = (value) => {
     setSearchValue(value);
   };
