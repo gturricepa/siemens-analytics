@@ -43,7 +43,7 @@ export const Navigate = styled.div`
   align-items: center;
   position: fixed;
   right: 25px;
-  bottom: 75px;
+  bottom: 45px;
   cursor: pointer;
   animation: ${scaleAnimation} 1.5s infinite;
 `;
