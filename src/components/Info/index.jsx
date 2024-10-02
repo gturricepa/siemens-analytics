@@ -1,5 +1,6 @@
 import { PraticeChart } from "../Form/PraticeChart";
 import * as Styled from "./styles";
+import { DownSquareOutlined } from "@ant-design/icons";
 export const Info = ({ topic, data, name }) => {
   const getTopicInfo = (topic) => {
     const topicsMap = {
@@ -40,15 +41,20 @@ export const Info = ({ topic, data, name }) => {
     (item) => item.respostas_instrutor !== "Aprovado"
   );
 
-  // Ordenar a lista de pessoas por nome (ou sobrenome)
   const sortedListPerson = listPerson.sort((a, b) => {
-    const nameA = a.firstname.toLowerCase(); // Converter para minúsculas para comparação
+    const nameA = a.firstname.toLowerCase();
     const nameB = b.firstname.toLowerCase();
-    if (nameA < nameB) return -1; // A vem antes de B
-    if (nameA > nameB) return 1; // A vem depois de B
-    return 0; // São iguais
+    if (nameA < nameB) return -1;
+    if (nameA > nameB) return 1;
+    return 0;
   });
 
+  const handleClick = () => {
+    window.scrollTo({
+      top: window.scrollY + 400,
+      behavior: "smooth",
+    });
+  };
   return (
     <Styled.Holder>
       <h1>{topic === "Todos" ? "GERAL" : topic.toUpperCase()}</h1>
@@ -60,6 +66,11 @@ export const Info = ({ topic, data, name }) => {
         }}
       >
         <PraticeChart data={data} topic={topic} />
+        {!name && sortedListPerson.length > 0 && (
+          <Styled.Navigate onClick={handleClick}>
+            <DownSquareOutlined />
+          </Styled.Navigate>
+        )}
         <p>{getTopicInfo(topic)}</p>
       </div>
       {!name && sortedListPerson.length > 0 && (

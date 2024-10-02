@@ -1,3 +1,4 @@
+import RefAutoComplete from "antd/es/auto-complete";
 import styled, { keyframes } from "styled-components";
 
 const slideIn = keyframes`
@@ -77,4 +78,22 @@ export const Title = styled.h2`
   span {
     margin-right: 0.5rem;
   }
+`;
+
+export const StyledAutoComplete = styled(RefAutoComplete)`
+  .ant-input {
+    border: 1px solid #009999;
+  }
+  .ant-select-item-option-active {
+    border-color: #009999;
+  }
+  input::placeholder {
+  }
+  .ant-select-selection-placeholder {
+    color: grey;
+  }
+
+  /* .ant-select-selection-search {
+    background-color: red;
+  } */
 `;

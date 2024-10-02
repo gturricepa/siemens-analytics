@@ -1,3 +1,4 @@
+import RefAutoComplete from "antd/es/auto-complete";
 import styled, { keyframes } from "styled-components";
 const slideIn = keyframes`
   0% {
@@ -75,4 +76,25 @@ export const Separator = styled.div`
   width: 100%;
 
   justify-content: space-evenly;
+`;
+
+export const StyledAutoComplete = styled(RefAutoComplete)`
+  align-self: self-start;
+  display: flex;
+  margin-left: 2rem;
+  .ant-input {
+    border: 1px solid #009999;
+  }
+  .ant-select-item-option-active {
+    border-color: #009999;
+  }
+  input::placeholder {
+  }
+  .ant-select-selection-placeholder {
+    color: grey;
+  }
+
+  /* .ant-select-selection-search {
+    background-color: red;
+  } */
 `;

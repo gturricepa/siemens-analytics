@@ -1,7 +1,7 @@
 import React from "react";
 import * as XLSX from "xlsx";
 import * as Styled from "./styles";
-import { Spin } from "antd";
+import { Spin, AutoComplete } from "antd";
 import {
   BarChart,
   Bar,
@@ -10,10 +10,11 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { RiseOutlined } from "@ant-design/icons";
+import { RiseOutlined, SearchOutlined } from "@ant-design/icons";
 
 export const DriversResults = () => {
   const [data, setData] = React.useState([]);
+  const [searchValue, setSearchValue] = React.useState("");
 
   React.useEffect(() => {
     document.title = "CEPA | SIEMENS - BTW Teórico";
@@ -52,17 +53,31 @@ export const DriversResults = () => {
 
   const formatDate = (str) => {
     const parts = str.split(" ")[0].split("-");
-    const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
-    return formattedDate;
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
   };
 
-  const sortedData = [...data].sort((a, b) => {
+  const filteredData = data.filter((item) => {
+    const fullName = `${item.firstname} ${item.lastname}`.toLowerCase();
+    return fullName.includes(searchValue.toLowerCase());
+  });
+
+  const sortedData = [...filteredData].sort((a, b) => {
     const nameA = `${a.firstname} ${a.lastname}`.toLowerCase();
     const nameB = `${b.firstname} ${b.lastname}`.toLowerCase();
-    if (nameA < nameB) return -1;
-    if (nameA > nameB) return 1;
-    return 0;
+    return nameA.localeCompare(nameB);
   });
+
+  const uniqueNames = [
+    ...new Set(data.map((item) => `${item.firstname} ${item.lastname}`)),
+  ];
+
+  const handleSelect = (value) => {
+    setSearchValue(value);
+  };
+
+  const handleChange = (value) => {
+    setSearchValue(value);
+  };
 
   return (
     <Styled.Main>
@@ -71,6 +86,16 @@ export const DriversResults = () => {
         Tabela de consulta BTW Teórico
       </h2>
       <Styled.ListHolder>
+        <>
+          <Styled.StyledAutoComplete
+            options={uniqueNames.map((name) => ({ value: name }))}
+            onSelect={handleSelect}
+            onChange={handleChange}
+            style={{ width: 500, marginBottom: 16 }}
+            placeholder="Pesquise por motorista"
+            suffix={<SearchOutlined />}
+          />
+        </>
         {!data.length ? (
           <Spin />
         ) : (
@@ -109,15 +134,16 @@ export const DriversResults = () => {
                 </tbody>
               </table>
             </div>
-
-            <ResponsiveContainer width="20%" height={500}>
-              <BarChart data={chartData}>
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="total" fill="#009999" />
-              </BarChart>
-            </ResponsiveContainer>
+            {!searchValue && (
+              <ResponsiveContainer width="20%" height={500}>
+                <BarChart data={chartData}>
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="total" fill="#009999" />
+                </BarChart>
+              </ResponsiveContainer>
+            )}
           </Styled.Separator>
         )}
       </Styled.ListHolder>

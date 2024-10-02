@@ -1,8 +1,8 @@
-import React from "react";
-import { Spin } from "antd";
+import React, { useState, useEffect } from "react";
+import { Spin, AutoComplete } from "antd";
 import * as Styled from "./styles";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, Cell } from "recharts";
-import { AimOutlined } from "@ant-design/icons";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from "recharts";
+import { AimOutlined, SearchOutlined } from "@ant-design/icons";
 
 const excelDateToJSDate = (serial) => {
   const excelStartDate = new Date(Date.UTC(1899, 11, 30));
@@ -10,7 +10,24 @@ const excelDateToJSDate = (serial) => {
 };
 
 export const List = ({ data, icon, text, full }) => {
-  const groupedData = data.reduce((acc, item) => {
+  const [searchValue, setSearchValue] = useState("");
+  const [filteredData, setFilteredData] = useState(data);
+
+  const uniqueNames = [
+    ...new Set(data.map((item) => `${item.firstname} ${item.lastname}`)),
+  ];
+
+  useEffect(() => {
+    const filtered = data.filter((item) =>
+      `${item.firstname} ${item.lastname}`
+        .toLowerCase()
+        .includes(searchValue.toLowerCase())
+    );
+
+    setFilteredData(filtered);
+  }, [searchValue, data]);
+
+  const groupedData = filteredData.reduce((acc, item) => {
     const status =
       item.respostas_instrutor === "Aprovado" ? "Aprovados" : "Reprovados";
     acc[status] = (acc[status] || 0) + 1;
@@ -23,14 +40,19 @@ export const List = ({ data, icon, text, full }) => {
   }));
 
   const COLORS = ["#009999", "#e64e40"];
-
-  const sortedData = [...data].sort((a, b) => {
-    const nameA = a.firstname.toLowerCase(); //
-    const nameB = b.firstname.toLowerCase();
-    if (nameA < nameB) return -1;
-    if (nameA > nameB) return 1;
-    return 0;
+  const sortedData = [...filteredData].sort((a, b) => {
+    const nameA = `${a.firstname} ${a.lastname}`.toLowerCase();
+    const nameB = `${b.firstname} ${b.lastname}`.toLowerCase();
+    return nameA.localeCompare(nameB);
   });
+
+  const handleSelect = (value) => {
+    setSearchValue(value);
+  };
+
+  const handleChange = (value) => {
+    setSearchValue(value);
+  };
 
   return (
     <>
@@ -41,6 +63,15 @@ export const List = ({ data, icon, text, full }) => {
       <Styled.Holder full={full}>
         {data.length > 0 ? (
           <Styled.ListHolder>
+            {/* AutoComplete now outside the scrollable div */}
+            <Styled.StyledAutoComplete
+              options={uniqueNames.map((name) => ({ value: name }))}
+              onSelect={handleSelect}
+              onChange={handleChange}
+              style={{ width: 500, marginBottom: 16 }}
+              placeholder="Pesquise por motorista"
+              suffix={<SearchOutlined />}
+            />
             <div style={{ height: "25rem", overflowY: "auto" }}>
               <table>
                 <thead>
@@ -54,26 +85,34 @@ export const List = ({ data, icon, text, full }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {sortedData.map((item, index) => (
-                    <tr key={index}>
-                      <td>{item.firstname}</td>
-                      <td>{item.lastname}</td>
-                      <td>
-                        {excelDateToJSDate(
-                          item.realization_date
-                        ).toLocaleDateString()}
-                      </td>
-                      <td>{item.topicos}</td>
-                      <td>{item.respostas_topicos}</td>
-                      {full ? null : (
+                  {sortedData.length > 0 ? (
+                    sortedData.map((item, index) => (
+                      <tr key={index}>
+                        <td>{item.firstname}</td>
+                        <td>{item.lastname}</td>
                         <td>
-                          {item.respostas_instrutor === "Aprovado"
-                            ? "Aprovado"
-                            : "Reprovado"}
+                          {excelDateToJSDate(
+                            item.realization_date
+                          ).toLocaleDateString()}
                         </td>
-                      )}
+                        <td>{item.topicos}</td>
+                        <td>{item.respostas_topicos}</td>
+                        {full ? null : (
+                          <td>
+                            {item.respostas_instrutor === "Aprovado"
+                              ? "Aprovado"
+                              : "Reprovado"}
+                          </td>
+                        )}
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={full ? 5 : 4}>
+                        Nenhum resultado encontrado
+                      </td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>
