@@ -9,7 +9,7 @@ export const Practice = () => {
   const [data, setData] = React.useState([]);
   const [allDates, setAllDates] = React.useState([]);
   const [selectedDates, setSelectedDates] = React.useState([]);
-  const [selectedTopic, setSelectedTopic] = React.useState("Todos");
+  const [selectedTopic, setSelectedTopic] = React.useState("Postura");
   const [loading, setLoading] = React.useState(true);
   const [searchValue, setSearchValue] = React.useState("");
   const [selectedName, setSelectedName] = React.useState("");
@@ -92,7 +92,7 @@ export const Practice = () => {
 
   React.useEffect(() => {
     if (selectedDates.length === 0) {
-      setSelectedTopic("Esquiva de Emergência");
+      setSelectedTopic("Postura");
     }
   }, [selectedDates]);
 
@@ -158,15 +158,12 @@ export const Practice = () => {
           </Styled.Dates>
           <Styled.Labels>
             <Radio.Group onChange={handleTopicChange} value={selectedTopic}>
-              {uniqueTopics
-                .slice()
-                .reverse()
-                .map((topic) => (
-                  <Radio key={topic} value={topic}>
-                    {topic}
-                  </Radio>
-                ))}
-              <Radio value="Todos">Todos</Radio>
+              {uniqueTopics.map((topic) => (
+                <Radio key={topic} value={topic}>
+                  {topic}
+                </Radio>
+              ))}
+              {/* ^<Radio value="Todos">Todos</Radio> */}
             </Radio.Group>
           </Styled.Labels>
 

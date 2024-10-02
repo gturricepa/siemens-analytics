@@ -104,13 +104,15 @@ export const Labels = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  padding: 0.2rem;
 
   height: 100%;
   width: 100%;
   label {
+    align-items: space-around;
     width: 100%;
     font-size: 1rem;
-    padding-bottom: 0.4rem;
+    padding-bottom: 0.6rem;
     box-sizing: border-box;
   }
 `;
@@ -121,7 +123,7 @@ export const Selectors = styled.div`
 `;
 
 export const StyledAutoComplete = styled(RefAutoComplete)`
-  .ant-input {
+  bac .ant-input {
     border: 1px solid #009999;
   }
   .ant-select-item-option-active {

@@ -58,6 +58,7 @@ export const PraticeChart = ({ data, topic }) => {
           type="category"
           tickFormatter={formatTick}
           width={yAxixSize(topic)}
+          fontSize={14}
         />
         <Tooltip />
         <Bar dataKey="aprovado" fill="#009999" />
