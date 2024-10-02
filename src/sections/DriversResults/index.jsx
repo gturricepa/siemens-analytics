@@ -60,7 +60,7 @@ export const DriversResults = () => {
     const fullName = `${item.firstname} ${item.lastname}`.toLowerCase();
     return fullName.includes(searchValue.toLowerCase());
   });
-
+  //dummy
   const sortedData = [...filteredData].sort((a, b) => {
     const nameA = `${a.firstname} ${a.lastname}`.toLowerCase();
     const nameB = `${b.firstname} ${b.lastname}`.toLowerCase();
