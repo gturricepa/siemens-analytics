@@ -1,5 +1,13 @@
 import React from "react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer,
+} from "recharts";
 import * as Styled from "./styles";
 
 export const PraticeChart = ({ data, topic }) => {
@@ -50,20 +58,22 @@ export const PraticeChart = ({ data, topic }) => {
   const formatTick = (tick) => `${tick}`;
   return (
     <Styled.Holder>
-      <BarChart width={900} height={500} data={finalData} layout="vertical">
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis type="number" />
-        <YAxis
-          dataKey="topico"
-          type="category"
-          tickFormatter={formatTick}
-          width={yAxixSize(topic)}
-          fontSize={14}
-        />
-        <Tooltip />
-        <Bar dataKey="aprovado" fill="#009999" />
-        <Bar dataKey="reprovado" fill="#e64e40" />
-      </BarChart>
+      <ResponsiveContainer>
+        <BarChart width={900} height={700} data={finalData} layout="vertical">
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis type="number" />
+          <YAxis
+            dataKey="topico"
+            type="category"
+            tickFormatter={formatTick}
+            width={yAxixSize(topic)}
+            fontSize={14}
+          />
+          <Tooltip />
+          <Bar dataKey="aprovado" fill="#009999" />
+          <Bar dataKey="reprovado" fill="#e64e40" />
+        </BarChart>
+      </ResponsiveContainer>
     </Styled.Holder>
   );
 };

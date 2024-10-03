@@ -21,8 +21,12 @@ export const ListHolder = styled.div`
   padding: 1rem;
   align-self: center;
   animation: ${slideIn} 0.3s ease;
-  width: 95%;
+  width: 80%;
   height: 98%;
+
+  @media (max-width: 1200px) {
+    width: 80%;
+  }
 
   table {
     border-collapse: collapse;
@@ -74,7 +78,6 @@ export const Main = styled.section`
 export const Separator = styled.div`
   display: flex;
   width: 100%;
-
   justify-content: space-evenly;
 `;
 
@@ -97,4 +100,9 @@ export const StyledAutoComplete = styled(RefAutoComplete)`
   /* .ant-select-selection-search {
     background-color: red;
   } */
+`;
+
+export const Query = styled.div`
+  display: flex;
+  width: 100%;
 `;

@@ -29,6 +29,9 @@ const GlobalStyles = createGlobalStyle`
       border-bottom: 2px solid black;
       transition: border-bottom 0.4s ease;
     }
+    @media (max-width: 1200px) {
+      margin: 0 1rem;
+  }
   }
   h2{
    span{

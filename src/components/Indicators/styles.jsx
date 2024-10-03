@@ -5,7 +5,8 @@ export const Holder = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-
+  margin-bottom: 35px;
+  box-sizing: border-box;
   border: 1px solid lightgray;
   border-radius: 5px;
 `;
@@ -16,7 +17,10 @@ export const Item = styled.div`
   justify-content: space-evenly;
   align-items: center;
   width: 11rem;
-  height: 11rem;
+  height: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
 
   svg {
     display: flex;

@@ -6,4 +6,5 @@ export const Holder = styled.div`
   align-items: center;
   width: 100%;
   min-height: 25rem;
+  height: 30rem;
 `;

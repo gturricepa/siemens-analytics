@@ -65,6 +65,10 @@ export const Chart = styled.div`
   margin-left: 2rem;
   box-sizing: border-box;
 
+  @media (max-width: 1200px) {
+    display: none;
+  }
+
   h3 {
     svg {
       margin-right: 0rem;

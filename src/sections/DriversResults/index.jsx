@@ -133,7 +133,9 @@ export const DriversResults = () => {
                 </tbody>
               </table>
             </div>
+
             {!searchValue && (
+              // <Styled.Query>
               <ResponsiveContainer width="20%" height={500}>
                 <BarChart data={chartData}>
                   <XAxis dataKey="name" />
@@ -142,6 +144,7 @@ export const DriversResults = () => {
                   <Bar dataKey="total" fill="#009999" />
                 </BarChart>
               </ResponsiveContainer>
+              // </Styled.Query>
             )}
           </Styled.Separator>
         )}

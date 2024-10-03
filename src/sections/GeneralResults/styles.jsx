@@ -2,6 +2,14 @@ import styled from "styled-components";
 
 export const Holder = styled.section`
   display: flex;
+  width: 100%;
+  height: 100%;
+  @media (max-width: 1200px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const Filter = styled.div`
@@ -10,7 +18,7 @@ export const Filter = styled.div`
   border-radius: 5px;
   align-items: center;
   justify-content: center;
-  height: 4rem;
+  height: 3rem;
   width: 100%;
   margin-bottom: 2rem;
   border: 1px solid lightgray;
@@ -45,7 +53,8 @@ export const Filter = styled.div`
 export const Left = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 80%;
+
   svg {
     margin-right: 0.5rem;
     span {
@@ -81,4 +90,9 @@ export const Main = styled.section`
   flex-direction: column;
   justify-content: center;
   width: 98%;
+`;
+
+export const ChartHolder = styled.div`
+  height: 15rem;
+  width: 30rem;
 `;

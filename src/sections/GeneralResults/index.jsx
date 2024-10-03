@@ -11,7 +11,14 @@ import {
 } from "@ant-design/icons";
 import { AlertOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
-import { BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 import { List } from "../../components/List";
 
 export const GeneralResults = () => {
@@ -68,7 +75,7 @@ export const GeneralResults = () => {
 
   const uniqueDrivers = Array.from(
     new Set(filteredData.map((item) => item.driver))
-  ).sort(); // Ordenando
+  ).sort();
   const uniqueActivities = new Set(
     filteredData.map((item) => item.atividade_id)
   );
@@ -161,12 +168,14 @@ export const GeneralResults = () => {
               <h2>
                 <BarChartOutlined /> Percentual Geral do desempenho
               </h2>
-              <BarChart width={900} height={370} data={chartData}>
-                <XAxis dataKey="topic" tick={{ fontSize: 10 }} />
-                <YAxis />
-                <Tooltip formatter={(value) => `${value.toFixed(2)}%`} />
-                <Bar dataKey="successRate" fill="#009999" name="Aprovação" />
-              </BarChart>
+              <ResponsiveContainer>
+                <BarChart width={900} height={400} data={chartData}>
+                  <XAxis dataKey="topic" tick={{ fontSize: 10 }} />
+                  <YAxis />
+                  <Tooltip formatter={(value) => `${value.toFixed(2)}%`} />
+                  <Bar dataKey="successRate" fill="#009999" name="Aprovação" />
+                </BarChart>
+              </ResponsiveContainer>
             </>
           )}
         </Styled.Right>

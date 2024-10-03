@@ -93,6 +93,12 @@ export const Filters = styled.div`
   }
   span {
   }
+  @media (max-width: 1200px) {
+    display: flex;
+    width: 100%;
+
+    height: 100%;
+  }
 `;
 
 export const Dates = styled.div`
@@ -123,13 +129,26 @@ export const Labels = styled.div`
     box-sizing: border-box;
     @media (max-height: 700px) {
       padding-bottom: 0.1rem;
+      display: flex;
+    }
+    @media (max-width: 1200px) {
+      flex-wrap: wrap;
+
+      height: 1.5rem;
     }
   }
 `;
 
 export const Selectors = styled.div`
   display: flex;
+
   width: 100%;
+  @media (max-width: 1200px) {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-self: center;
+  }
 `;
 
 export const StyledAutoComplete = styled(RefAutoComplete)`
