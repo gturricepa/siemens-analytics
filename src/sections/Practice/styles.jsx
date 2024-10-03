@@ -17,7 +17,7 @@ export const Holder = styled.section`
   flex-direction: column;
   animation: ${slideIn} 0.3s ease;
 
-  min-width: 100%;
+  width: 100%;
 
   h3 {
     margin-top: 3rem;
@@ -58,6 +58,7 @@ export const Holder = styled.section`
 
 export const Filters = styled.div`
   display: flex;
+  justify-content: space-evenly;
   flex-direction: column;
   border: 1px solid lightgray;
   border-radius: 5px;
@@ -66,9 +67,10 @@ export const Filters = styled.div`
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
   width: 35%;
-  height: calc(100vh - 12rem);
-  margin-left: 2rem;
+  height: calc(100vh - 10rem);
 
+  margin-left: 2rem;
+  box-sizing: border-box;
   input[type="search"] {
     background-color: #009999;
   }
@@ -106,8 +108,6 @@ export const Labels = styled.div`
   align-items: center;
   padding: 0.2rem;
 
-  height: 100%;
-  width: 100%;
   label {
     align-items: space-around;
     width: 100%;
