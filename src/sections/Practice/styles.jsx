@@ -69,6 +69,10 @@ export const Filters = styled.div`
   width: 35%;
   height: calc(100vh - 10rem);
 
+  @media (max-height: 700px) {
+    height: calc(100vh - 4rem);
+    /* background-color: red; */
+  }
   margin-left: 2rem;
   box-sizing: border-box;
   input[type="search"] {
@@ -105,14 +109,17 @@ export const Dates = styled.div`
 export const Labels = styled.div`
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  box-sizing: border-box;
   padding: 0.2rem;
+  max-height: 100%;
 
+  .ant-radio-wrapper {
+  }
   label {
     align-items: space-around;
     width: 100%;
     font-size: 1rem;
-    padding-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
     box-sizing: border-box;
   }
 `;
@@ -123,7 +130,7 @@ export const Selectors = styled.div`
 `;
 
 export const StyledAutoComplete = styled(RefAutoComplete)`
-  bac .ant-input {
+  .ant-input {
     border: 1px solid #009999;
   }
   .ant-select-item-option-active {
