@@ -25,9 +25,10 @@ export const Left = styled.main`
 `;
 
 export const Right = styled.main`
-  width: 100%;
+  width: 99%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
 `;
 const scaleAnimation = keyframes`
@@ -43,16 +44,15 @@ const scaleAnimation = keyframes`
 `;
 
 export const WorldImg = styled.img`
-  width: 1000px;
-  height: 60%;
+  width: 99%;
+  height: 100%;
+
   //animation: ${scaleAnimation} 3s infinite;
 `;
 export const Logo = styled.img`
   margin-bottom: 10px;
   height: 4rem;
   width: 16rem;
-  align-items: flex-end;
-  align-self: flex-end;
-  margin-right: 250px;
-  align-self: self-end;
+  align-self: center;
+  justify-self: center;
 `;

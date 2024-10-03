@@ -121,6 +121,9 @@ export const Labels = styled.div`
     font-size: 1rem;
     padding-bottom: 0.4rem;
     box-sizing: border-box;
+    @media (max-height: 700px) {
+      padding-bottom: 0.1rem;
+    }
   }
 `;
 

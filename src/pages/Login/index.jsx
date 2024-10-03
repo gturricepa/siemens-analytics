@@ -9,12 +9,13 @@ export const Login = () => {
   }, []);
   return (
     <Styled.Holder2Lines>
-      <Styled.Logo src={logo} alt="Logo" />
       <Styled.HolderTwoColluns>
         <Styled.Left>
           <Form></Form>
         </Styled.Left>
         <Styled.Right>
+          <Styled.Logo src={logo} alt="Logo" />
+
           <Styled.WorldImg src={world} alt="World" />
         </Styled.Right>
       </Styled.HolderTwoColluns>
