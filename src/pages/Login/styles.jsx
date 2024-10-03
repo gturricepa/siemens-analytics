@@ -12,6 +12,10 @@ export const Holder2Lines = styled.main`
 export const HolderTwoColluns = styled.section`
   width: 100%;
   display: flex;
+  @media (max-width: 1100px) {
+    display: flex;
+    flex-direction: column;
+  }
 
   justify-content: center;
   align-items: center;
@@ -46,7 +50,9 @@ const scaleAnimation = keyframes`
 export const WorldImg = styled.img`
   width: 99%;
   height: 100%;
-
+  @media (max-width: 1100px) {
+    display: none;
+  }
   //animation: ${scaleAnimation} 3s infinite;
 `;
 export const Logo = styled.img`
@@ -55,4 +61,7 @@ export const Logo = styled.img`
   width: 16rem;
   align-self: center;
   justify-self: center;
+  @media (max-width: 1100px) {
+    margin-top: 1rem;
+  }
 `;

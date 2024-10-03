@@ -62,4 +62,7 @@ export const Name = styled.h1`
 
 export const Logo = styled.img`
   width: 22rem;
+  @media (max-width: 1100px) {
+    width: 15rem;
+  }
 `;
