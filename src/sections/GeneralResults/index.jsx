@@ -41,10 +41,7 @@ export const GeneralResults = () => {
         jsonData.map((item) => item.realization_date_online)
       );
 
-      const dates = Array.from(uniqueDateRealization).map((excelDate) => {
-        return new Date((excelDate - 25569) * 86400 * 1000);
-      });
-
+      const dates = Array.from(uniqueDateRealization);
       setSelectedDates(dates);
     };
 
@@ -53,8 +50,8 @@ export const GeneralResults = () => {
 
   const handleCheckboxChange = (date) => {
     setSelectedDates((prev) => {
-      if (prev.some((d) => d.toDateString() === date.toDateString())) {
-        return prev.filter((d) => d.toDateString() !== date.toDateString());
+      if (prev.some((d) => d === date)) {
+        return prev.filter((d) => d !== date);
       } else {
         return [...prev, date];
       }
@@ -64,12 +61,8 @@ export const GeneralResults = () => {
   const filteredData =
     selectedDates.length > 0
       ? data.filter((item) => {
-          const realizationDate = new Date(
-            (item.realization_date_online - 25569) * 86400 * 1000
-          );
-          return selectedDates.some(
-            (date) => date.toDateString() === realizationDate.toDateString()
-          );
+          const realizationDate = item.realization_date_online;
+          return selectedDates.some((date) => date === realizationDate);
         })
       : [];
 
@@ -82,12 +75,6 @@ export const GeneralResults = () => {
   const uniqueActivitiesType = new Set(
     filteredData.map((item) => item.atividade_nome)
   );
-
-  const dates = Array.from(
-    new Set(data.map((item) => item.realization_date_online))
-  ).map((excelDate) => {
-    return new Date((excelDate - 25569) * 86400 * 1000);
-  });
 
   const uniqueTopics = Array.from(
     new Set(filteredData.map((item) => item.topicos))
@@ -126,27 +113,18 @@ export const GeneralResults = () => {
           </h2>
           <Styled.Filter>
             <CalendarOutlined />
-            {dates.length === 0 ? (
-              <Spin />
-            ) : (
-              dates.map((date) => (
-                <label key={date.toString()}>
-                  <input
-                    type="checkbox"
-                    checked={selectedDates.some(
-                      (d) => d.toDateString() === date.toDateString()
-                    )}
-                    onChange={() => handleCheckboxChange(date)}
-                  />
-                  {date
-                    .toISOString()
-                    .slice(0, 10)
-                    .split("-")
-                    .reverse()
-                    .join("/")}
-                </label>
-              ))
-            )}
+            {Array.from(
+              new Set(data.map((item) => item.realization_date_online))
+            ).map((date) => (
+              <label key={date}>
+                <input
+                  type="checkbox"
+                  checked={selectedDates.some((d) => d === date)}
+                  onChange={() => handleCheckboxChange(date)}
+                />
+                {date}
+              </label>
+            ))}
           </Styled.Filter>
           <h2>
             <RadarChartOutlined /> Indicadores

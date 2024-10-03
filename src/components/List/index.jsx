@@ -4,9 +4,12 @@ import * as Styled from "./styles";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from "recharts";
 import { AimOutlined, SearchOutlined } from "@ant-design/icons";
 
-const excelDateToJSDate = (serial) => {
-  const excelStartDate = new Date(Date.UTC(1899, 11, 30));
-  return new Date(excelStartDate.getTime() + serial * 24 * 60 * 60 * 1000);
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // meses começam em 0
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
 };
 
 export const List = ({ data, icon, text, full }) => {
@@ -53,6 +56,7 @@ export const List = ({ data, icon, text, full }) => {
   const handleChange = (value) => {
     setSearchValue(value);
   };
+  console.log(data);
 
   return (
     <>
@@ -76,8 +80,9 @@ export const List = ({ data, icon, text, full }) => {
                 <thead>
                   <tr>
                     <th>Nome</th>
-                    <th>Sobrenome</th>
                     <th>Data</th>
+                    <th>Local</th>
+
                     <th>Tópico</th>
                     {full ? <th>Avaliação do Instrutor</th> : <th>Questão</th>}
                     {full ? null : <th>Resultado</th>}
@@ -87,13 +92,12 @@ export const List = ({ data, icon, text, full }) => {
                   {sortedData.length > 0 ? (
                     sortedData.map((item, index) => (
                       <tr key={index}>
-                        <td>{item.firstname}</td>
-                        <td>{item.lastname}</td>
                         <td>
-                          {excelDateToJSDate(
-                            item.realization_date
-                          ).toLocaleDateString()}
+                          {item.firstname} {item.lastname}
                         </td>
+                        <td>{item.realization_date_online}</td>
+                        <td>{item.city}</td>
+
                         <td>{item.topicos}</td>
                         <td>{item.respostas_topicos}</td>
                         {full ? null : (

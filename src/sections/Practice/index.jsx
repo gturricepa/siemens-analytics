@@ -13,6 +13,7 @@ export const Practice = () => {
   const [loading, setLoading] = React.useState(true);
   const [searchValue, setSearchValue] = React.useState("");
   const [selectedName, setSelectedName] = React.useState("");
+
   React.useEffect(() => {
     const fetchData = async () => {
       document.title = "CEPA | SIEMENS - BTW Prático";
@@ -33,10 +34,7 @@ export const Practice = () => {
           jsonData.map((item) => item.realization_date_online)
         );
 
-        const dates = Array.from(uniqueDateRealization).map((excelDate) => {
-          return new Date((excelDate - 25569) * 86400 * 1000);
-        });
-
+        const dates = Array.from(uniqueDateRealization);
         setAllDates(dates);
         setSelectedDates(dates);
       } catch (error) {
@@ -51,8 +49,8 @@ export const Practice = () => {
 
   const handleCheckboxChange = (date) => {
     setSelectedDates((prev) => {
-      if (prev.some((d) => d.toDateString() === date.toDateString())) {
-        return prev.filter((d) => d.toDateString() !== date.toDateString());
+      if (prev.some((d) => d === date)) {
+        return prev.filter((d) => d !== date);
       } else {
         return [...prev, date];
       }
@@ -66,12 +64,8 @@ export const Practice = () => {
   const filteredData =
     selectedDates.length > 0
       ? data.filter((item) => {
-          const realizationDate = new Date(
-            (item.realization_date_online - 25569) * 86400 * 1000
-          );
-          return selectedDates.some(
-            (date) => date.toDateString() === realizationDate.toDateString()
-          );
+          const realizationDate = item.realization_date_online;
+          return selectedDates.some((date) => date === realizationDate);
         })
       : [];
 
@@ -117,20 +111,6 @@ export const Practice = () => {
     );
   }
 
-  const formateDate = (str) => {
-    const parts = str.split(" ");
-
-    const day = parts[2];
-    const month = String(new Date(`${parts[1]} 1`).getMonth() + 1).padStart(
-      2,
-      "0"
-    );
-    const year = parts[3];
-
-    const formattedDate = `${day}/${month}/${year}`;
-    return formattedDate;
-  };
-
   const listPerson = finalFilteredData.filter(
     (item) => item.respostas_instrutor !== "Aprovado"
   );
@@ -144,15 +124,13 @@ export const Practice = () => {
         <Styled.Filters>
           <Styled.Dates>
             {allDates.map((date) => (
-              <div key={date.toString()}>
+              <div key={date}>
                 <input
                   type="checkbox"
                   onChange={() => handleCheckboxChange(date)}
-                  checked={selectedDates.some(
-                    (d) => d.toDateString() === date.toDateString()
-                  )}
+                  checked={selectedDates.some((d) => d === date)}
                 />
-                {formateDate(date.toDateString())}
+                {date}
               </div>
             ))}
           </Styled.Dates>
@@ -163,7 +141,7 @@ export const Practice = () => {
                   {topic}
                 </Radio>
               ))}
-              {/* ^<Radio value="Todos">Todos</Radio> */}
+              {/* <Radio value="Todos">Todos</Radio> */}
             </Radio.Group>
           </Styled.Labels>
 
@@ -184,38 +162,6 @@ export const Practice = () => {
           data={finalFilteredDataWithNames}
         />
       </Styled.Selectors>
-      {/* {listPerson.length > 0 && !selectedName && (
-        <div
-          style={{
-            height: "25rem",
-            overflowY: "auto",
-            width: "100%",
-            display: "flex",
-          }}
-        >
-          <h3>Reprovações</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th>Sobrenome</th>
-                <th>Tópico</th>
-                <th>Comentário do Instrutor</th>
-              </tr>
-            </thead>
-            <tbody>
-              {listPerson.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.firstname}</td>
-                  <td>{item.lastname}</td>
-                  <td>{item.topicos}</td>
-                  <td>{item.respostas_topicos}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )} */}
     </Styled.Holder>
   );
 };
