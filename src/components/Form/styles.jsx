@@ -6,6 +6,7 @@ export const Holder = styled.form`
   align-items: center;
   justify-content: center;
   width: 100%;
+  box-sizing: border-box;
 `;
 
 export const Input = styled.input`
@@ -59,4 +60,6 @@ export const Name = styled.h1`
   color: #333333;
 `;
 
-export const Logo = styled.img``;
+export const Logo = styled.img`
+  width: 22rem;
+`;
