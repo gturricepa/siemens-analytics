@@ -67,7 +67,7 @@ export const Chart = styled.div`
 
   h3 {
     svg {
-      margin-right: 0.3rem;
+      margin-right: 0rem;
     }
   }
 `;
@@ -76,7 +76,7 @@ export const Title = styled.h2`
   display: flex;
   margin-top: 2.5rem;
   span {
-    margin-right: 0.5rem;
+    margin-right: 1rem;
   }
 `;
 

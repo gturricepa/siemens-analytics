@@ -24,6 +24,10 @@ export const Item = styled.div`
     width: 2rem;
     align-self: center;
     justify-self: center;
+
+    margin-left: 0.37rem;
+    justify-content: center;
+    align-content: center;
   }
   span {
     display: flex;
@@ -31,6 +35,8 @@ export const Item = styled.div`
     font-size: 1.5rem;
     align-self: center;
     justify-self: center;
+    justify-content: center;
+    align-content: center;
   }
 `;
 

@@ -46,4 +46,5 @@ export const Navigate = styled.div`
   bottom: 45px;
   cursor: pointer;
   animation: ${scaleAnimation} 1.5s infinite;
+  color: #009999;
 `;
