@@ -9,6 +9,7 @@ import {
 } from "@ant-design/icons";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
+import { filterColumns, updateColumnValue } from "../../utils/filterColuns";
 
 export const List = ({ data, icon, text, full }) => {
   const [searchValue, setSearchValue] = useState("");
@@ -26,13 +27,12 @@ export const List = ({ data, icon, text, full }) => {
       const fullName = `${item.firstname} ${item.lastname}`.toLowerCase();
       const city = item.city.toLowerCase();
 
-      // Verifica correspondência exata para o nome e para a cidade
       const nameMatch =
         searchValue === "" || fullName === searchValue.toLowerCase();
       const cityMatch =
         searchValueCity === "" || city === searchValueCity.toLowerCase();
 
-      return nameMatch && cityMatch; // Retorna verdadeiro se ambos corresponderem
+      return nameMatch && cityMatch;
     });
 
     setFilteredData(filtered);
@@ -78,7 +78,25 @@ export const List = ({ data, icon, text, full }) => {
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
 
   const exportToExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(filteredData);
+    const columnsToKeep = [
+      "firstname",
+      "lastname",
+      "realization_date",
+      "city",
+      "topicos",
+      "respostas_topicos",
+      "respostas_instrutor",
+    ];
+
+    const selectedColumns = filterColumns(sortedData, columnsToKeep);
+    const fileToDownload = updateColumnValue(
+      selectedColumns,
+      "respostas_instrutor",
+      "Aprovado",
+      "Reprovado"
+    );
+
+    const worksheet = XLSX.utils.json_to_sheet(fileToDownload);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Dados");
     const excelBuffer = XLSX.write(workbook, {
@@ -86,7 +104,7 @@ export const List = ({ data, icon, text, full }) => {
       type: "array",
     });
     const blob = new Blob([excelBuffer], { type: EXCEL_TYPE });
-    saveAs(blob, "treinamento_siemens.xlsx");
+    saveAs(blob, "consulta_treinamento_siemens.xlsx");
   };
 
   return (
