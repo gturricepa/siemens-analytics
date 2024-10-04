@@ -31,7 +31,7 @@ export const Practice = () => {
         setData(jsonData);
 
         const uniqueDateRealization = new Set(
-          jsonData.map((item) => item.realization_date_online)
+          jsonData.map((item) => item.realization_date)
         );
 
         const dates = Array.from(uniqueDateRealization);
@@ -64,7 +64,7 @@ export const Practice = () => {
   const filteredData =
     selectedDates.length > 0
       ? data.filter((item) => {
-          const realizationDate = item.realization_date_online;
+          const realizationDate = item.realization_date;
           return selectedDates.some((date) => date === realizationDate);
         })
       : [];

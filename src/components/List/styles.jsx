@@ -1,3 +1,4 @@
+import { Button as btn } from "antd";
 import RefAutoComplete from "antd/es/auto-complete";
 import styled, { keyframes } from "styled-components";
 
@@ -100,4 +101,37 @@ export const StyledAutoComplete = styled(RefAutoComplete)`
   /* .ant-select-selection-search {
     background-color: red;
   } */
+`;
+
+export const HolderComplete = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+export const SButton = styled.button`
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #009999;
+  color: white;
+  border: none;
+  transition: background-color 0.2s;
+  height: 2.5rem;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 15px;
+  line-height: 2.5rem;
+  align-self: flex-end;
+  margin-top: 35px;
+
+  svg {
+    margin-left: 15px;
+    font-size: 1.3rem;
+  }
+
+  &:hover {
+    background: #333333;
+  }
 `;

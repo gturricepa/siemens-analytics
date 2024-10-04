@@ -1,34 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { Spin, AutoComplete } from "antd";
+import { Spin, AutoComplete, Button } from "antd";
 import * as Styled from "./styles";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from "recharts";
-import { AimOutlined, SearchOutlined } from "@ant-design/icons";
-
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // meses começam em 0
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
-};
+import {
+  AimOutlined,
+  DownloadOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 
 export const List = ({ data, icon, text, full }) => {
   const [searchValue, setSearchValue] = useState("");
+  const [searchValueCity, setSearchValueCity] = useState("");
   const [filteredData, setFilteredData] = useState(data);
 
   const uniqueNames = [
     ...new Set(data.map((item) => `${item.firstname} ${item.lastname}`)),
   ];
 
+  const uniqueCities = [...new Set(data.map((item) => item.city))];
+
   useEffect(() => {
-    const filtered = data.filter((item) =>
-      `${item.firstname} ${item.lastname}`
-        .toLowerCase()
-        .includes(searchValue.toLowerCase())
-    );
+    const filtered = data.filter((item) => {
+      const fullName = `${item.firstname} ${item.lastname}`.toLowerCase();
+      const city = item.city.toLowerCase();
+
+      // Verifica correspondência exata para o nome e para a cidade
+      const nameMatch =
+        searchValue === "" || fullName === searchValue.toLowerCase();
+      const cityMatch =
+        searchValueCity === "" || city === searchValueCity.toLowerCase();
+
+      return nameMatch && cityMatch; // Retorna verdadeiro se ambos corresponderem
+    });
 
     setFilteredData(filtered);
-  }, [searchValue, data]);
+  }, [searchValue, searchValueCity, data]);
 
   const groupedData = filteredData.reduce((acc, item) => {
     const status =
@@ -43,6 +51,7 @@ export const List = ({ data, icon, text, full }) => {
   }));
 
   const COLORS = ["#009999", "#e64e40"];
+
   const sortedData = [...filteredData].sort((a, b) => {
     const nameA = `${a.firstname} ${a.lastname}`.toLowerCase();
     const nameB = `${b.firstname} ${b.lastname}`.toLowerCase();
@@ -56,7 +65,29 @@ export const List = ({ data, icon, text, full }) => {
   const handleChange = (value) => {
     setSearchValue(value);
   };
-  console.log(data);
+
+  const handleSelectCity = (value) => {
+    setSearchValueCity(value);
+  };
+
+  const handleChangeCity = (value) => {
+    setSearchValueCity(value);
+  };
+
+  const EXCEL_TYPE =
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+
+  const exportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(filteredData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Dados");
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    const blob = new Blob([excelBuffer], { type: EXCEL_TYPE });
+    saveAs(blob, "treinamento_siemens.xlsx");
+  };
 
   return (
     <>
@@ -67,14 +98,24 @@ export const List = ({ data, icon, text, full }) => {
       <Styled.Holder full={full}>
         {data.length > 0 ? (
           <Styled.ListHolder>
-            <Styled.StyledAutoComplete
-              options={uniqueNames.sort().map((name) => ({ value: name }))}
-              onSelect={handleSelect}
-              onChange={handleChange}
-              style={{ width: 500, marginBottom: 16 }}
-              placeholder="Pesquise por motorista"
-              suffix={<SearchOutlined />}
-            />
+            <Styled.HolderComplete>
+              <Styled.StyledAutoComplete
+                options={uniqueNames.sort().map((name) => ({ value: name }))}
+                onSelect={handleSelect}
+                onChange={handleChange}
+                style={{ width: 500, marginBottom: 16 }}
+                placeholder="Pesquise por motorista"
+                suffix={<SearchOutlined />}
+              />
+              <Styled.StyledAutoComplete
+                options={uniqueCities.sort().map((city) => ({ value: city }))}
+                onSelect={handleSelectCity}
+                onChange={handleChangeCity}
+                style={{ width: 500, marginBottom: 16 }}
+                placeholder="Pesquise por cidade"
+                suffix={<SearchOutlined />}
+              />
+            </Styled.HolderComplete>
             <div style={{ height: "25rem", overflowY: "auto" }}>
               <table>
                 <thead>
@@ -82,7 +123,6 @@ export const List = ({ data, icon, text, full }) => {
                     <th>Nome</th>
                     <th>Data</th>
                     <th>Local</th>
-
                     <th>Tópico</th>
                     {full ? <th>Avaliação do Instrutor</th> : <th>Questão</th>}
                     {full ? null : <th>Resultado</th>}
@@ -95,9 +135,8 @@ export const List = ({ data, icon, text, full }) => {
                         <td>
                           {item.firstname} {item.lastname}
                         </td>
-                        <td>{item.realization_date_online}</td>
+                        <td>{item.realization_date}</td>
                         <td>{item.city}</td>
-
                         <td>{item.topicos}</td>
                         <td>{item.respostas_topicos}</td>
                         {full ? null : (
@@ -119,6 +158,9 @@ export const List = ({ data, icon, text, full }) => {
                 </tbody>
               </table>
             </div>
+            <Styled.SButton onClick={exportToExcel}>
+              Download <DownloadOutlined />
+            </Styled.SButton>
           </Styled.ListHolder>
         ) : (
           <div

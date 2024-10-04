@@ -38,7 +38,7 @@ export const GeneralResults = () => {
       setData(jsonData);
 
       const uniqueDateRealization = new Set(
-        jsonData.map((item) => item.realization_date_online)
+        jsonData.map((item) => item.realization_date)
       );
 
       const dates = Array.from(uniqueDateRealization);
@@ -61,7 +61,7 @@ export const GeneralResults = () => {
   const filteredData =
     selectedDates.length > 0
       ? data.filter((item) => {
-          const realizationDate = item.realization_date_online;
+          const realizationDate = item.realization_date;
           return selectedDates.some((date) => date === realizationDate);
         })
       : [];
@@ -113,18 +113,18 @@ export const GeneralResults = () => {
           </h2>
           <Styled.Filter>
             <CalendarOutlined />
-            {Array.from(
-              new Set(data.map((item) => item.realization_date_online))
-            ).map((date) => (
-              <label key={date}>
-                <input
-                  type="checkbox"
-                  checked={selectedDates.some((d) => d === date)}
-                  onChange={() => handleCheckboxChange(date)}
-                />
-                {date}
-              </label>
-            ))}
+            {Array.from(new Set(data.map((item) => item.realization_date))).map(
+              (date) => (
+                <label key={date}>
+                  <input
+                    type="checkbox"
+                    checked={selectedDates.some((d) => d === date)}
+                    onChange={() => handleCheckboxChange(date)}
+                  />
+                  {date}
+                </label>
+              )
+            )}
           </Styled.Filter>
           <h2>
             <RadarChartOutlined /> Indicadores
