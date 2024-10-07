@@ -104,7 +104,7 @@ export const List = ({ data, icon, text, full }) => {
       type: "array",
     });
     const blob = new Blob([excelBuffer], { type: EXCEL_TYPE });
-    saveAs(blob, "consulta_treinamento_siemens.xlsx");
+    saveAs(blob, "consulta_geral_treinamento_siemens.xlsx");
   };
 
   return (

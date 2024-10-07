@@ -33,10 +33,13 @@ export const ListHolder = styled.div`
     margin-right: 1rem;
   }
 
+  tbody {
+    margin: 0;
+  }
+
   th,
   td {
     font-size: 13px;
-
     border-bottom: 1px solid lightgray;
     padding: 0.8rem;
     text-align: center;
@@ -105,4 +108,32 @@ export const StyledAutoComplete = styled(RefAutoComplete)`
 export const Query = styled.div`
   display: flex;
   width: 100%;
+`;
+
+export const SButton = styled.button`
+  width: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #009999;
+  color: white;
+  border: none;
+  transition: background-color 0.2s;
+  height: 2.5rem;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 15px;
+  line-height: 2.5rem;
+  align-self: flex-start;
+  margin-top: 35px;
+
+  svg {
+    margin-left: 15px;
+    font-size: 1.3rem;
+  }
+
+  &:hover {
+    background: #333333;
+  }
 `;

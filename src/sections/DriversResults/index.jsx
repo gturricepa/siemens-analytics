@@ -1,5 +1,6 @@
 import React from "react";
 import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 import * as Styled from "./styles";
 import { Spin, AutoComplete } from "antd";
 import {
@@ -10,7 +11,16 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { RiseOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  DownloadOutlined,
+  RiseOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
+import {
+  filterColumns,
+  formatDateExcel,
+  updateColumnValue,
+} from "../../utils/filterColuns";
 
 export const DriversResults = () => {
   const [data, setData] = React.useState([]);
@@ -77,7 +87,44 @@ export const DriversResults = () => {
   const handleChange = (value) => {
     setSearchValue(value);
   };
+  const EXCEL_TYPE =
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
 
+  const exportToExcel = () => {
+    console.log(sortedData);
+    const columnsToKeep = [
+      "firstname",
+      "lastname",
+      "course_type",
+      "result_label_online",
+      "realization_online",
+
+      "expiration_date_online",
+    ];
+
+    const selectedColumns = filterColumns(sortedData, columnsToKeep);
+    const formatted = formatDateExcel(selectedColumns, [
+      "realization_online",
+      "expiration_date_online",
+    ]);
+
+    const fileToDownload = updateColumnValue(
+      formatted,
+      "result_label_online",
+      "Aprovado",
+      "Reprovado"
+    );
+
+    const worksheet = XLSX.utils.json_to_sheet(fileToDownload);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Dados");
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    const blob = new Blob([excelBuffer], { type: EXCEL_TYPE });
+    saveAs(blob, "consulta_terico_treinamento_siemens.xlsx");
+  };
   return (
     <Styled.Main>
       <h2>
@@ -148,6 +195,9 @@ export const DriversResults = () => {
             )}
           </Styled.Separator>
         )}
+        <Styled.SButton onClick={exportToExcel}>
+          Download <DownloadOutlined />
+        </Styled.SButton>
       </Styled.ListHolder>
     </Styled.Main>
   );

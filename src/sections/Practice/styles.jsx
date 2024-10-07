@@ -15,14 +15,16 @@ const slideIn = keyframes`
 export const Holder = styled.section`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   animation: ${slideIn} 0.3s ease;
-
   width: 100%;
-
+  margin-bottom: 0;
   h3 {
     margin-top: 3rem;
   }
   h2 {
+    align-self: flex-start;
     margin-top: 1rem;
     margin-left: 2.5rem;
     svg {
@@ -32,7 +34,6 @@ export const Holder = styled.section`
   }
   table {
     align-self: center;
-
     justify-self: center;
     width: 90%;
     border-collapse: collapse;
@@ -57,114 +58,52 @@ export const Holder = styled.section`
 `;
 
 export const Filters = styled.div`
+  .first-svg {
+    font-size: 1.5rem;
+  }
+  width: 90%;
   display: flex;
   justify-content: space-evenly;
-  flex-direction: column;
   border: 1px solid lightgray;
   border-radius: 5px;
-  padding: 1rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s ease;
-  width: 35%;
-  height: calc(100vh - 10rem);
+  align-items: center;
 
-  @media (max-height: 700px) {
-    height: calc(100vh - 4rem);
-    /* background-color: red; */
-  }
-  margin-left: 2rem;
-  box-sizing: border-box;
-  input[type="search"] {
-    background-color: #009999;
-  }
+  margin-bottom: 1rem;
   label {
-    margin-left: 2rem;
+    font-size: 0.8rem;
   }
-
-  input[type="checkbox"] {
-    accent-color: #009999;
-  }
-
-  svg {
-    font-size: 1.5rem;
-    border-right: 1px solid black;
-    padding-right: 2rem;
-  }
-  span {
-  }
-  @media (max-width: 1200px) {
-    display: flex;
-    width: 100%;
-
-    height: 100%;
-  }
+  box-sizing: border-box;
+  padding: 15px;
 `;
 
 export const Dates = styled.div`
   display: flex;
+  flex-direction: column;
   align-self: center;
   margin-bottom: 0;
   padding-bottom: 0;
-
-  width: 100%;
-  justify-content: space-evenly;
-  margin-bottom: 1rem;
+  width: 15rem;
 `;
 
 export const Labels = styled.div`
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   box-sizing: border-box;
-  padding: 0.2rem;
-  max-height: 100%;
-
-  .ant-radio-wrapper {
-  }
-  label {
-    align-items: space-around;
-    width: 100%;
-    font-size: 1rem;
-    padding-bottom: 0.4rem;
-    box-sizing: border-box;
-    @media (max-height: 700px) {
-      padding-bottom: 0.1rem;
-      display: flex;
-    }
-    @media (max-width: 1200px) {
-      flex-wrap: wrap;
-
-      height: 1.5rem;
-    }
-  }
+  width: 20rem;
 `;
 
 export const Selectors = styled.div`
   display: flex;
-
+  flex-direction: column;
   width: 100%;
-  @media (max-width: 1200px) {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    align-self: center;
-  }
+  justify-content: center;
+  align-items: center;
 `;
 
 export const StyledAutoComplete = styled(RefAutoComplete)`
-  .ant-input {
-    border: 1px solid #009999;
-  }
-  .ant-select-item-option-active {
-    border-color: #009999;
-  }
-  input::placeholder {
-  }
+  width: 35rem;
+
   .ant-select-selection-placeholder {
     color: grey;
   }
-
-  /* .ant-select-selection-search {
-    background-color: red;
-  } */
 `;

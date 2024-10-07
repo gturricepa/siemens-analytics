@@ -8,9 +8,9 @@ import {
   FilterOutlined,
   RadarChartOutlined,
   TrophyOutlined,
+  AlertOutlined,
 } from "@ant-design/icons";
-import { AlertOutlined } from "@ant-design/icons";
-import { Spin } from "antd";
+import { Spin, Select } from "antd";
 import {
   BarChart,
   Bar,
@@ -23,7 +23,8 @@ import { List } from "../../components/List";
 
 export const GeneralResults = () => {
   const [data, setData] = React.useState([]);
-  const [selectedDates, setSelectedDates] = React.useState([]);
+  const [selectedDate, setSelectedDate] = React.useState("Todas as Datas"); // Inicialize aqui
+  const [allDates, setAllDates] = React.useState([]);
 
   React.useEffect(() => {
     document.title = "CEPA | SIEMENS - Resultados Gerais";
@@ -42,29 +43,21 @@ export const GeneralResults = () => {
       );
 
       const dates = Array.from(uniqueDateRealization);
-      setSelectedDates(dates);
+      setAllDates(dates);
+      // Não defina aqui, já está no estado
     };
 
     fetchData();
   }, []);
 
-  const handleCheckboxChange = (date) => {
-    setSelectedDates((prev) => {
-      if (prev.some((d) => d === date)) {
-        return prev.filter((d) => d !== date);
-      } else {
-        return [...prev, date];
-      }
-    });
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
   };
 
   const filteredData =
-    selectedDates.length > 0
-      ? data.filter((item) => {
-          const realizationDate = item.realization_date;
-          return selectedDates.some((date) => date === realizationDate);
-        })
-      : [];
+    selectedDate === "Todas as Datas"
+      ? data // Mostra todos os dados se "Todas as Datas" estiver selecionada
+      : data.filter((item) => item.realization_date === selectedDate); // Filtra pelos dados da data específica
 
   const uniqueDrivers = Array.from(
     new Set(filteredData.map((item) => item.driver))
@@ -104,6 +97,16 @@ export const GeneralResults = () => {
     (item) => item.respostas_instrutor !== "Aprovado"
   );
 
+  const options = [
+    { label: "Todas as Datas", value: "Todas as Datas" },
+    ...Array.from(new Set(data.map((item) => item.realization_date))).map(
+      (date) => ({
+        label: date,
+        value: date,
+      })
+    ),
+  ];
+
   return (
     <Styled.Main>
       <Styled.Holder>
@@ -113,18 +116,12 @@ export const GeneralResults = () => {
           </h2>
           <Styled.Filter>
             <CalendarOutlined />
-            {Array.from(new Set(data.map((item) => item.realization_date))).map(
-              (date) => (
-                <label key={date}>
-                  <input
-                    type="checkbox"
-                    checked={selectedDates.some((d) => d === date)}
-                    onChange={() => handleCheckboxChange(date)}
-                  />
-                  {date}
-                </label>
-              )
-            )}
+            <Styled.StyledSelect
+              placeholder="Selecione uma data"
+              value={selectedDate}
+              onChange={handleDateChange}
+              options={options}
+            />
           </Styled.Filter>
           <h2>
             <RadarChartOutlined /> Indicadores

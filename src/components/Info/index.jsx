@@ -1,6 +1,13 @@
 import { PraticeChart } from "../Form/PraticeChart";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 import * as Styled from "./styles";
-import { DownSquareOutlined } from "@ant-design/icons";
+import { DownloadOutlined, DownSquareOutlined } from "@ant-design/icons";
+import {
+  filterColumns,
+  formatDateExcel,
+  updateColumnValue,
+} from "../../utils/filterColuns";
 export const Info = ({ topic, data, name }) => {
   const getTopicInfo = (topic) => {
     const topicsMap = {
@@ -55,9 +62,32 @@ export const Info = ({ topic, data, name }) => {
       behavior: "smooth",
     });
   };
+  const EXCEL_TYPE =
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+
+  const exportToExcel = () => {
+    const columnsToKeep = [
+      "firstname",
+      "lastname",
+      "topicos",
+      "respostas_topicos",
+    ];
+
+    const selectedColumns = filterColumns(listPerson, columnsToKeep);
+
+    const worksheet = XLSX.utils.json_to_sheet(selectedColumns);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Dados");
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    const blob = new Blob([excelBuffer], { type: EXCEL_TYPE });
+    saveAs(blob, "consulta_reprovacoes_treinamento_pratico_siemens.xlsx");
+  };
   return (
     <Styled.Holder>
-      <h1>{topic === "Todos" ? "GERAL" : topic.toUpperCase()}</h1>
+      {/* <h1>{topic === "Todos" ? "GERAL" : topic.toUpperCase()}</h1> */}
       <div
         style={{
           display: "flex",
@@ -76,9 +106,13 @@ export const Info = ({ topic, data, name }) => {
       {!name && sortedListPerson.length > 0 && (
         <div
           style={{
-            height: "25rem",
+            display: "flex",
+            border: "1px solid lightgrey",
             width: "100%",
-            marginTop: "1rem",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: "5px",
+            marginTop: "5px",
           }}
         >
           <table>
@@ -100,6 +134,9 @@ export const Info = ({ topic, data, name }) => {
                 </tr>
               ))}
             </tbody>
+            <Styled.SButton onClick={exportToExcel}>
+              Download <DownloadOutlined />
+            </Styled.SButton>
           </table>
         </div>
       )}

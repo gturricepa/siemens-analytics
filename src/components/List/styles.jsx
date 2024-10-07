@@ -109,7 +109,7 @@ export const HolderComplete = styled.div`
 `;
 
 export const SButton = styled.button`
-  width: 25%;
+  width: 15rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -123,7 +123,7 @@ export const SButton = styled.button`
   font-size: 1rem;
   padding: 15px;
   line-height: 2.5rem;
-  align-self: flex-end;
+  align-self: flex-start;
   margin-top: 35px;
 
   svg {

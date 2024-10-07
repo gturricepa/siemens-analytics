@@ -29,3 +29,16 @@ export const updateColumnValue = (
     return updatedItem;
   });
 };
+
+export const formatDateExcel = (data, columns) => {
+  return data.map((item) => {
+    columns.forEach((column) => {
+      const dateStr = item[column];
+      if (dateStr) {
+        const parts = dateStr.split(" ")[0].split("-");
+        item[column] = `${parts[2]}/${parts[1]}/${parts[0]}`;
+      }
+    });
+    return item;
+  });
+};

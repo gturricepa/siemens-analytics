@@ -12,10 +12,12 @@ const scaleAnimation = keyframes`
 export const Holder = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 90%;
   height: 100%;
-  margin-left: 1rem;
+  border-radius: 5px;
   box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
 
   h1 {
     border-radius: 5px;
@@ -28,11 +30,10 @@ export const Holder = styled.div`
     color: white;
     margin: 0;
     margin-bottom: 0.5rem;
+    width: 100%;
   }
 
   p {
-    padding: 15px;
-    margin: 0;
     font-size: 0.8rem;
   }
 `;
@@ -47,4 +48,33 @@ export const Navigate = styled.div`
   cursor: pointer;
   animation: ${scaleAnimation} 1.5s infinite;
   color: #009999;
+`;
+
+export const SButton = styled.button`
+  width: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #009999;
+  color: white;
+  border: none;
+  transition: background-color 0.2s;
+  height: 2.5rem;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 15px;
+  line-height: 2.5rem;
+  align-self: flex-start;
+  margin-top: 35px;
+  margin-bottom: 20px;
+
+  svg {
+    margin-left: 15px;
+    font-size: 1.3rem;
+  }
+
+  &:hover {
+    background: #333333;
+  }
 `;

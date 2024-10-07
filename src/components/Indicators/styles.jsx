@@ -5,10 +5,11 @@ export const Holder = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  margin-bottom: 35px;
+  margin-bottom: 30px;
   box-sizing: border-box;
   border: 1px solid lightgray;
   border-radius: 5px;
+  width: 100%;
 `;
 
 export const Item = styled.div`
@@ -17,9 +18,10 @@ export const Item = styled.div`
   justify-content: space-evenly;
   align-items: center;
   width: 11rem;
-  height: 100%;
+  height: 90%;
   padding-top: 10px;
   padding-bottom: 10px;
+
   box-sizing: border-box;
 
   svg {
@@ -28,19 +30,18 @@ export const Item = styled.div`
     width: 2rem;
     align-self: center;
     justify-self: center;
-
     margin-left: 0.37rem;
     justify-content: center;
     align-content: center;
   }
   span {
     display: flex;
-
     font-size: 1.5rem;
     align-self: center;
     justify-self: center;
     justify-content: center;
     align-content: center;
+    margin: 15px;
   }
 `;
 

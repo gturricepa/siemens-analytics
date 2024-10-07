@@ -59,7 +59,7 @@ export const PraticeChart = ({ data, topic }) => {
   return (
     <Styled.Holder>
       <ResponsiveContainer>
-        <BarChart width={900} height={700} data={finalData} layout="vertical">
+        <BarChart width={400} height={400} data={finalData} layout="vertical">
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis type="number" />
           <YAxis
