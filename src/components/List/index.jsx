@@ -107,6 +107,8 @@ export const List = ({ data, icon, text, full }) => {
     saveAs(blob, "consulta_geral_treinamento_siemens.xlsx");
   };
 
+  console.log(sortedData);
+
   return (
     <>
       <Styled.Title>
@@ -144,6 +146,7 @@ export const List = ({ data, icon, text, full }) => {
                     <th>Tópico</th>
                     {full ? <th>Avaliação do Instrutor</th> : <th>Questão</th>}
                     {full ? null : <th>Resultado</th>}
+                    <th>Realizou Teórico</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -164,6 +167,7 @@ export const List = ({ data, icon, text, full }) => {
                               : "Reprovado"}
                           </td>
                         )}
+                        <td>{item.relizou_teorico}</td>
                       </tr>
                     ))
                   ) : (
