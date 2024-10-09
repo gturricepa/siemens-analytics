@@ -98,8 +98,8 @@ export const DriversResults = () => {
       "course_type",
       "result_label_online",
       "realization_online",
-
       "expiration_date_online",
+      "realizou_pratico",
     ];
 
     const selectedColumns = filterColumns(sortedData, columnsToKeep);
@@ -125,6 +125,9 @@ export const DriversResults = () => {
     const blob = new Blob([excelBuffer], { type: EXCEL_TYPE });
     saveAs(blob, "consulta_terico_treinamento_siemens.xlsx");
   };
+
+  console.log(data);
+
   return (
     <Styled.Main>
       <h2>
@@ -163,6 +166,7 @@ export const DriversResults = () => {
                     <th>Resultado</th>
                     <th>Data de Realização</th>
                     <th>Vencimento</th>
+                    <th>Realizou Prático</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -175,6 +179,7 @@ export const DriversResults = () => {
                       <td>{item.result_label_online}</td>
                       <td>{formatDate(item.realization_online)}</td>
                       <td>{formatDate(item.expiration_date_online)}</td>
+                      <td>{item.realizou_pratico}</td>
                     </tr>
                   ))}
                 </tbody>

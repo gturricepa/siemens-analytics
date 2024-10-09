@@ -86,7 +86,7 @@ export const List = ({ data, icon, text, full }) => {
       "topicos",
       "respostas_topicos",
       "respostas_instrutor",
-      "relizou_teorico",
+      // "relizou_teorico",
     ];
 
     const selectedColumns = filterColumns(sortedData, columnsToKeep);
@@ -107,8 +107,6 @@ export const List = ({ data, icon, text, full }) => {
     const blob = new Blob([excelBuffer], { type: EXCEL_TYPE });
     saveAs(blob, "consulta_geral_treinamento_siemens.xlsx");
   };
-
-  console.log(sortedData);
 
   return (
     <>
@@ -147,7 +145,7 @@ export const List = ({ data, icon, text, full }) => {
                     <th>Tópico</th>
                     {full ? <th>Avaliação do Instrutor</th> : <th>Questão</th>}
                     {full ? null : <th>Resultado</th>}
-                    <th>Realizou Teórico</th>
+                    {/* <th>Realizou Teórico</th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -168,7 +166,7 @@ export const List = ({ data, icon, text, full }) => {
                               : "Reprovado"}
                           </td>
                         )}
-                        <td>{item.relizou_teorico}</td>
+                        {/* <td>{item.relizou_teorico}</td> */}
                       </tr>
                     ))
                   ) : (
