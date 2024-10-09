@@ -141,7 +141,7 @@ export const GeneralResults = () => {
           ) : (
             <>
               <h2>
-                <BarChartOutlined /> Percentual Geral do desempenho
+                <BarChartOutlined /> Percentual Geral do Desempenho
               </h2>
               <ResponsiveContainer>
                 <BarChart width={900} height={400} data={chartData}>
