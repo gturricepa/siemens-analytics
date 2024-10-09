@@ -24,7 +24,9 @@ export const Header = ({ onSelect }) => {
           <li onClick={() => handleSelect("general")}>
             Resultados Gerais - Práticos
           </li>
-          <li onClick={() => handleSelect("practical")}>BTW Leves Práticos</li>
+          <li onClick={() => handleSelect("practical")}>
+            BTW Leves - Práticos
+          </li>
           <li onClick={() => handleSelect("users")}>BTW Teóricos</li>
           {/* <li onClick={() => handleSelect("notes")}>Observações</li> */}
         </ul>
