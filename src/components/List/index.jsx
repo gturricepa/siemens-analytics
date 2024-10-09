@@ -86,6 +86,7 @@ export const List = ({ data, icon, text, full }) => {
       "topicos",
       "respostas_topicos",
       "respostas_instrutor",
+      "relizou_teorico",
     ];
 
     const selectedColumns = filterColumns(sortedData, columnsToKeep);
